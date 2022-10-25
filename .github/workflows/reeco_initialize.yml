@@ -13,8 +13,9 @@ jobs:
 
       - name: checkout repo content
         uses: actions/checkout@v3
-        run: git config --global user.email "marilena.daquino2@unibo.it"
-        run: git config --global user.name "marilenadaquino"
+        run: |
+          git config --global user.email "marilena.daquino2@unibo.it"
+          git config --global user.name "marilenadaquino"
 
       - name: check if repositories.txt exists in this repo
         id: check_files
