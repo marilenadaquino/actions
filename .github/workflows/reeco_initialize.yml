@@ -35,6 +35,8 @@ jobs:
         #   echo "::set-output name=matrix-repos::[\"${conts//'\n '/\" \"}\"]"
         env:
           ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
+          user.email: marilena.daquino2@unibo.it
+          user.name: marilenadaquino
         run: |
           while IFS= read -r line; do
             echo "Text read from file: $line"
