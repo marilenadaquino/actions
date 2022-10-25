@@ -33,6 +33,8 @@ jobs:
         # run: |
         #   conts=${{ steps.read_content.outputs.content }}
         #   echo "::set-output name=matrix-repos::[\"${conts//'\n '/\" \"}\"]"
+        env:
+        ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
           while IFS= read -r line; do
             echo "Text read from file: $line"
@@ -42,7 +44,7 @@ jobs:
               version=${arrIN[2]}
               echo "repo: $repo"
               echo "version: $version"
-              [ -d "content/_$repo" ] || git clone -n "https://github.com/$repo" "content/_$repo"
+              [ -d "content/_$repo" ] || git clone -n "https://$ACCESS_TOKEN@github.com/$repo" "content/_$repo"
               cd "content/_$repo"
               git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
               while IFS= read -r line; do
