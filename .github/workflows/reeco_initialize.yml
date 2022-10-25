@@ -58,6 +58,14 @@ jobs:
               rm files.tmp
               rm -rf .git
               cd -
+              for d in content/* ; do
+                cd "$d"
+                pwd
+                git add *
+                  git commit -m "updated content"
+                  git push
+                cd ../..
+              done
           done < repositories.txt
 
       - name: repositories.txt does not exist, check if an issue already exists
