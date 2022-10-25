@@ -39,15 +39,13 @@ jobs:
               version=${arrIN[2]}
               echo "repo: $repo"
               echo "version: $version"
-              echo "git clone -n https://TOKEN@github.com/$repo"
               [ -d "content/_$repo" ] || git clone -n "https://$ACCESS_TOKEN@github.com/$repo" "content/_$repo"
               echo "cd content/_$repo"
               cd "content/_$repo"
-              echo "grep md"
-              git ls-tree -r HEAD --full-tree --name-only | grep "\.md" > files.tmp
+              git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
               while IFS= read -r line; do
                 echo "git checkout $line"
-                git checkout HEAD "$line" 
+                git checkout "$version" "$line"
               done < files.tmp
               echo "done < files.tmp"
               rm files.tmp
