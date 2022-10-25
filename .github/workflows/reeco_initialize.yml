@@ -25,7 +25,7 @@ jobs:
         with:
           files: "repositories.txt"
 
-      - name: grep md file from repositories in repositories.txt
+      - name: read repositories.txt and update submodules
         if: steps.check_files.outputs.files_exists == 'true'
         id: split_repos
         env:
