@@ -13,6 +13,8 @@ jobs:
 
       - name: checkout repo content
         uses: actions/checkout@v3
+        run: git config --global user.email "marilena.daquino2@unibo.it"
+        run: git config --global user.name "marilenadaquino"
 
       - name: check if repositories.txt exists in this repo
         id: check_files
@@ -35,8 +37,6 @@ jobs:
         #   echo "::set-output name=matrix-repos::[\"${conts//'\n '/\" \"}\"]"
         env:
           ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
-          user.email: marilena.daquino2@unibo.it
-          user.name: marilenadaquino
         run: |
           while IFS= read -r line; do
             echo "Text read from file: $line"
