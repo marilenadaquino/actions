@@ -13,6 +13,8 @@ jobs:
 
       - name: checkout repo content
         uses: actions/checkout@v3
+
+      - name: setup github user
         run: |
           git config --global user.email "marilena.daquino2@unibo.it"
           git config --global user.name "marilenadaquino"
@@ -23,19 +25,9 @@ jobs:
         with:
           files: "repositories.txt"
 
-      - name: repositories.txt exists, read content
-        if: steps.check_files.outputs.files_exists == 'true'
-        id: read_content
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./repositories.txt
-
       - name: grep md file from repositories in repositories.txt
-        if: ${{ success() }}
+        if: steps.check_files.outputs.files_exists == 'true'
         id: split_repos
-        # run: |
-        #   conts=${{ steps.read_content.outputs.content }}
-        #   echo "::set-output name=matrix-repos::[\"${conts//'\n '/\" \"}\"]"
         env:
           ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
