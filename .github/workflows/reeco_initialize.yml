@@ -44,15 +44,16 @@ jobs:
               echo "cd content/_$repo"
               cd "content/_$repo"
               echo "grep md"
-              git ls-tree -r --full-tree --name-only | grep "\.md" > files.tmp
+              git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
               while IFS= read -r line; do
                 echo "git checkout $line"
-                git checkout "$line"
+                git checkout "$version" "$line" 
               done < files.tmp
               echo "done < files.tmp"
               rm files.tmp
               rm -rf .git
               cd -
+              echo "committing md files to repo"
               for d in content/* ; do
                 cd "$d"
                 pwd
