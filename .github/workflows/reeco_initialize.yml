@@ -7,6 +7,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      matrix-repos: ${{ steps.split_repos.outputs.matrix-repos }}
     steps:
 
       - name: checkout repo content
@@ -27,7 +29,7 @@ jobs:
 
       - name: split lines in repositories.txt
         if: ${{ success() }}
-        id: split
+        id: split_repos
         run: |
           conts=${{ steps.read_content.outputs.content }}
           echo "::set-output name=matrix-repos::[\"${conts//'\n '/\" \"}\"]"
