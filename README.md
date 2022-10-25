@@ -1,2 +1,3 @@
-# actions
-a collection of github actions
+# reeco actions
+
+a collection of github actions for reeco
