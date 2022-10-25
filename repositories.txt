@@ -1,2 +1,2 @@
-https://github.com/marilenadaquino/information_visualization
-https://github.com/marilenadaquino/informatica-umanistica
+marilenadaquino/information_visualization
+marilenadaquino/informatica-umanistica
