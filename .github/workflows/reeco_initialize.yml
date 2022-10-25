@@ -29,9 +29,9 @@ jobs:
         if: ${{ success() }}
         id: split
         run: |
-        repos=${{ steps.read_content.outputs.content }}
-        echo "::set-output name=matrix-repos::[\"${repos//'\n'/\",\"}\"]"
-        echo
+          repos=${{ steps.read_content.outputs.content }}
+          echo "::set-output name=matrix-repos::[\"${repos//'\n'/\",\"}\"]"
+          echo
 
       - name: repositories.txt does not exist, check if an issue already exists
         if: steps.check_files.outputs.files_exists == 'false'
