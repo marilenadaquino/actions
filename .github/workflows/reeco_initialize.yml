@@ -2,7 +2,7 @@ name: initialize reeco
 
 on:
   schedule:
-    - cron: '19 9 * * *' # '0 0 * * 1' At 00:00 on Monday
+    - cron: '25 9 * * *' # '0 0 * * 1' At 00:00 on Monday
 
 jobs:
   build:
@@ -20,8 +20,8 @@ jobs:
       - name: check if repositories.txt exists in this repo
         id: check_files
         uses: andstor/file-existence-action@v2
-          with:
-            files: "repositories*.txt"
+        with:
+          files: "repositories*.txt"
       - name: repositories.txt exists
         if: steps.check_files.outputs.files_exists == 'true'
         run: echo repositories.txt exists # Only runs if all of the files exists
