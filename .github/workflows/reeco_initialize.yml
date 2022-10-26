@@ -31,7 +31,7 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
-          git rm -r --ignore-unmatch --cached content
+          rm -rf content?
           while IFS= read -r line; do
             echo "Text read from file: $line"
               IN="$line"
