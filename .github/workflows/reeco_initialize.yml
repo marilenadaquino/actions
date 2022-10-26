@@ -39,7 +39,7 @@ jobs:
               version=${arrIN[2]}
               echo "repo: $repo"
               echo "version: $version"
-              [ -d "content/_$repo" ] || git clone -n "https://$ACCESS_TOKEN@github.com/$repo" "content/_$repo"
+              [ -d "content/_$repo" ] || git clone -n "https://github.com/$repo" "content/_$repo"
               echo "cd content/_$repo"
               cd "content/_$repo"
               git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
@@ -49,7 +49,6 @@ jobs:
               done < files.tmp
               echo "done < files.tmp"
               rm files.tmp
-              rm -rf .git
               cd -
               echo "committing md files to repo"
               for d in content/* ; do
