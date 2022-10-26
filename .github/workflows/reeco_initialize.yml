@@ -41,7 +41,7 @@ jobs:
               echo "version: $version"
               [ -d "content/_$repo" ] || git clone -n "https://github.com/$repo" "content/_$repo"
               echo "cd content/_$repo"
-              cd "content/_$repo"
+              cd "content/_$repo: here the problem"
               git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
               while IFS= read -r line; do
                 echo "git checkout $line"
