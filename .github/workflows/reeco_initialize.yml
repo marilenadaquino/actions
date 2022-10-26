@@ -31,7 +31,7 @@ jobs:
         env:
           ACCESS_TOKEN: ${{ secrets.MY_TOKEN }}
         run: |
-          git rm -r content
+          git rm -r  --cached content
           while IFS= read -r line; do
             echo "Text read from file: $line"
               IN="$line"
@@ -50,6 +50,7 @@ jobs:
               done < files.tmp
               echo "done < files.tmp"
               rm files.tmp
+              rm -rf .git
               cd -
               echo "committing md files to repo"
               for d in content/* ; do
