@@ -59,7 +59,7 @@ jobs:
                 git add *
                 changes=0
                 git commit --dry-run && changes=1 || echo "No changes in $d"
-                if [ "$depth" -eq "0" ]
+                if [ "$depth" -eq "0" ]; then
                   git commit -m "updated content in $d"
                   git push
                 fi
