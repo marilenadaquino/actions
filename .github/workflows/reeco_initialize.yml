@@ -57,8 +57,12 @@ jobs:
                 cd "$d"
                 pwd
                 git add *
-                  git commit -m "updated content"
+                changes=0
+                git commit --dry-run && changes=1 || echo "No changes in $d"
+                if [ "$depth" -eq "0" ]
+                  git commit -m "updated content in $d"
                   git push
+                fi
                 cd ../..
               done
           done < repositories.txt
