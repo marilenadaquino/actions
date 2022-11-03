@@ -54,7 +54,7 @@ jobs:
               rm -rf .git
               cd -
               echo "committing md files in content/$repo to repo"
-              for d in content/$repo/*; do
+              for d in content/_$repo/*; do
                 pwd
                 cd "$d"
                 git add *
