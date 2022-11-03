@@ -53,20 +53,18 @@ jobs:
               rm files.tmp
               rm -rf .git
               cd -
-              echo "committing md files to repo"
-              for org in content/* ; do
-                cd "content/$org"
-                for d in  org/*; do
-                    pwd
-                    git add *
-                    changes=0
-                    git commit --dry-run && changes=1 || echo "No changes in $d"
-                    if [ "$changes" -eq "0" ]; then
-                      git commit -m "updated content in $d"
-                      git push
-                    fi
-                 done
-                 cd ../../..
+              echo "committing md files in content/$repo to repo"
+              for d in content/$repo/*; do
+                pwd
+                cd "$d"
+                git add *
+                changes=0
+                git commit --dry-run && changes=1 || echo "No changes in $d"
+                if [ "$changes" -eq "0" ]; then
+                  git commit -m "updated content in $d"
+                  git push
+                fi
+                cd ../../..
               done
           done < repositories.txt
 
