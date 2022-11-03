@@ -38,8 +38,8 @@ jobs:
               version=${arrIN[2]}
               echo "repo: $repo"
               echo "version: $version"
-              [ -d "content/_$repo" ] || git clone -n "https://github.com/$repo" "content/_$repo"
-              echo "cd content/_$repo: here the problem"
+              rm -rf "content/_$repo"
+              git clone -n "https://github.com/$repo" "content/_$repo"
               cd "content/_$repo"
               git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
               while IFS= read -r line; do
@@ -55,8 +55,12 @@ jobs:
                 cd "$d"
                 pwd
                 git add *
-                  git commit -m "updated content"
+                changes=0
+                git commit --dry-run && changes=1 || echo "No changes in $d"
+                if [ "$depth" -eq "0" ]; then
+                  git commit -m "updated content in $d"
                   git push
+                fi
                 cd ../..
               done
           done < repositories.txt
