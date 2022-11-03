@@ -41,7 +41,7 @@ jobs:
               fi
               echo "repo: $repo"
               echo "version: $version"
-              rm -rf "content/_$repo" && echo "Remove old folder" || echo "Remove old folder failed"
+              rm -rf "content/_$repo" #&& echo "Remove old folder" || echo "Remove old folder failed"
               git clone -n "https://github.com/$repo" "content/_$repo"
               cd "content/_$repo" && echo "In folder content/_$repo"
               git ls-tree -r "$version" --full-tree --name-only | grep "\.md" > files.tmp
@@ -52,7 +52,7 @@ jobs:
               echo "done < files.tmp"
               rm files.tmp && echo "Remove temporary file files.tmp"
               rm -rf .git && echo "Remove .git folder"
-              cd - && echo "Stepping back to "$(pwd)
+              cd - #&& echo "Stepping back to "$(pwd)
               echo "Committing md files in content/$repo to repo"
               pwd
               cd "content/_$repo"
