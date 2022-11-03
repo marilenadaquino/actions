@@ -1,2 +1,4 @@
 polifonia-project/dashboard:tag:v0.1.1
 polifonia-project/web_portal:tag:v0.0.1
+polifonia-project/external-components:tag:v1.0
+
