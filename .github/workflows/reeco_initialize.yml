@@ -36,6 +36,9 @@ jobs:
               arrIN=(${IN//:/ })
               repo=${arrIN[0]}
               version=${arrIN[2]}
+              if [ -z "$repo" ]; then
+                continue
+              fi
               echo "repo: $repo"
               echo "version: $version"
               rm -rf "content/_$repo"
