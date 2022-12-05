@@ -108,13 +108,13 @@ jobs:
         uses: "DamianReeves/write-file-action@master"
         with:
           path: ${{ steps.date.outputs.date }}_report.json
-          write-mode: write
+          write-mode: overwrite
           contents: ${{ steps.validate_yml.outputs.report }}
 
       - name: commit and push report
         uses: Andro999b/push@v1.3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.MY_TOKEN }}
           branch: main
           force: true
           message: 'new report - ${date}'
