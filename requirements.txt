@@ -1,0 +1,2 @@
+python_frontmatter==1.0.0
+schema==0.7.5
