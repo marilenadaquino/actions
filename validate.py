@@ -30,30 +30,34 @@ validators = [
     {Optional('image'): And(str, Use(uri_validator))},
     {Optional('logo'): And(str, Use(uri_validator))},
     {Optional('demo'): And(Or(str, list), Use(uri_validator))},
-    {Optional('links'): And(list, Use(uri_validator))}, 
-    {Optional('running-instance'): And(str, Use(uri_validator))}, 
-    {Optional('credits'): Or(str,list)}, 
+    {Optional('links'): And(list, Use(uri_validator))},
+    {Optional('running-instance'): And(str, Use(uri_validator))},
+    {Optional('credits'): Or(str,list)},
     {Optional('related-components'): list}, # TODO test component-ids
     {Optional('bibliography'): list}, # TODO test?
 ]
 
-report = {}
-for root, subFolders, files in os.walk('content'):
-    for fi in files:
-        with open(root + "/" + fi) as f:
-            try:
-                annotations, content = frontmatter.parse(f.read())
-                if 'component-id' in annotations.keys():
-                    errors = []
-                    for attribute in validators:
-                        try:
-                            reeco_schema = Schema(attribute, ignore_extra_keys=True)
-                            reeco_schema.validate(annotations)
-                        except Exception as e:
-                            errors.append(e)
-                    if errors:
-                        report[root + "/" + fi] = errors
-            except Exception as e:
-                # Malformed YAML in Markdown
-                report[root + "/" + fi] = [e]
-print(report)
+def validate_yml():
+    report = {}
+    for root, subFolders, files in os.walk('content'):
+        for fi in files:
+            with open(root + "/" + fi) as f:
+                try:
+                    annotations, content = frontmatter.parse(f.read())
+                    if 'component-id' in annotations.keys():
+                        errors = []
+                        for attribute in validators:
+                            try:
+                                reeco_schema = Schema(attribute, ignore_extra_keys=True)
+                                reeco_schema.validate(annotations)
+                            except Exception as e:
+                                errors.append(e)
+                        if errors:
+                            report[root + "/" + fi] = errors
+                except Exception as e:
+                    # Malformed YAML in Markdown
+                    report[root + "/" + fi] = [e]
+
+    print(f'::set-output name=report::{report}')
+
+validate_yml()

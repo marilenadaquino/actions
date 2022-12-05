@@ -100,6 +100,15 @@ jobs:
         id: validate_yml
         run: python validate.py
 
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y_%m_%d_%H-%M')"
+
+      - name: save report in a file
+        uses: "finnp/create-file-action@master"
+        env:
+          FILE_NAME: ${{ steps.date.outputs.date }}_report.json
+          FILE_DATA: steps.validate_yml.outputs.report
       #- name: read report, transform valid data to RDF and store
 
 # todo
