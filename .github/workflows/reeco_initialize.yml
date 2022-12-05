@@ -23,7 +23,7 @@ jobs:
         with:
           files: "repositories.txt"
 
-      - name: read repositories.txt and update submodules
+      - name: repositories.txt exists, read and update submodules
         if: steps.check_files.outputs.files_exists == 'true'
         id: split_repos
         env:
@@ -68,26 +68,34 @@ jobs:
               pwd
           done < repositories.txt
 
+      - name: repositories.txt does not exist, check if an issue already exists
+        if: steps.check_files.outputs.files_exists == 'false'
+        uses: nickderobertis/check-if-issue-exists-action@master
+        id: check_if_issue_exists
+        with:
+          repo: ${{secrets.MY_REPO}}
+          token: ${{ secrets.MY_TOKEN }}
+          title: missing repositories.txt
+          labels: bug
 
-      # - name: repositories.txt does not exist, check if an issue already exists
-      #   if: steps.check_files.outputs.files_exists == 'false'
-      #   uses: nickderobertis/check-if-issue-exists-action@master
-      #   id: check_if_issue_exists
-      #   with:
-      #     repo: ${{secrets.MY_REPO}}
-      #     token: ${{ secrets.MY_TOKEN }}
-      #     title: missing repositories.txt
-      #     labels: bug
-      #
-      # - name: repositories.txt and issue do not exist, create issue
-      #   if: steps.check_if_issue_exists.outputs.exists == 'false'
-      #   uses: JasonEtco/create-an-issue@v2
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
-      #   with:
-      #     filename: .github/initialize.md
+      - name: repositories.txt and issue do not exist, create an issue
+        if: steps.check_files.outputs.files_exists == 'false' && steps.check_if_issue_exists.outputs.exists == 'false'
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
+        with:
+          filename: .github/initialize.md
 
-# todo : check if an issue already exists before opening a new one!
+      - name: setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: validate yaml headings in md files
+        id: validate_yml
+        run: python3 validate.py
+
+      #- name: read report, transform valid data to RDF and store
 
 # todo
 # - name: setup python
