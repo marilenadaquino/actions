@@ -104,11 +104,23 @@ jobs:
         id: date
         run: echo "::set-output name=date::$(date +'%Y_%m_%d_%H-%M')"
 
-      - name: save report in a file
-        uses: "finnp/create-file-action@master"
-        env:
-          FILE_NAME: ${{ steps.date.outputs.date }}_report.json
-          FILE_DATA: steps.validate_yml.outputs.report
+      - name: write report file
+        uses: "DamianReeves/write-file-action@master"
+        with:
+          path: ${{ steps.date.outputs.date }}_report.json
+          write-mode: write
+          contents: ${{ steps.validate_yml.outputs.report }}
+
+      - name: commit and push report
+        uses: Andro999b/push@v1.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          force: true
+          message: 'new report - ${date}'
+
+
+
       #- name: read report, transform valid data to RDF and store
 
 # todo
