@@ -121,9 +121,7 @@ jobs:
 
       - name: check releases, zenodo sync, write report, PR zenodo.json to repos
         id: releases_zenodo
-        run:
-          pip install requests
-          python releases_zenodo.py
+        run: python releases_zenodo.py
         env:
           TOKEN: ${{ secrets.MY_TOKEN }}
 
