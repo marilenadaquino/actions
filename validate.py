@@ -58,6 +58,8 @@ def validate_yml():
                     # Malformed YAML in Markdown
                     report[root + "/" + fi] = [e]
 
-    print(f'"{report}={report}" >> $GITHUB_OUTPUT')
+    if "GITHUB_OUTPUT" in os.environ :
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f :
+            print("{0}={1}".format("report", report), file=f)
 
 validate_yml()

@@ -29,8 +29,9 @@ def get_releases():
                 repo_release["release_tag"] = release_tag
                 repo_release["draft_or_prerelease"] = draft_or_prerelease
                 releases_report.append(repo_release)
-
-    print(f'"{releases_report}={releases_report}" >> $GITHUB_OUTPUT')
+    if "GITHUB_OUTPUT" in os.environ :
+        with open(os.environ["GITHUB_OUTPUT"], "a") as f :
+            print("{0}={1}".format("releases_report", releases_report), file=f)
 
 get_releases()
 # zenodo sync ?
