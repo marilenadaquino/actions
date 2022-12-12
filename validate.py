@@ -52,7 +52,7 @@ def validate_yml():
                                 reeco_schema.validate(annotations)
                             except Exception as e:
                                 errors.append(e)
-                        if errors:
+                        if errors: # TODO print nicely
                             report[root + "/" + fi] = errors
                 except Exception as e:
                     # Malformed YAML in Markdown
