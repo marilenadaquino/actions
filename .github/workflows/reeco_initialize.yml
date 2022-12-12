@@ -117,7 +117,7 @@ jobs:
           github_token: ${{ secrets.MY_TOKEN }}
           branch: main
           force: true
-          message: 'new report - '${{ steps.date.outputs.date }}
+          message: new report - ${{ steps.date.outputs.date }}
 
       - name: check releases, zenodo sync, write report, PR zenodo.json to repos
         id: releases_zenodo
@@ -138,7 +138,7 @@ jobs:
           github_token: ${{ secrets.MY_TOKEN }}
           branch: main
           force: true
-          message: 'new release report - '${{ steps.date.outputs.date }}
+          message: new release report - ${{ steps.date.outputs.date }}
 
       #- name: transform valid data and releases to RDF and store
 
