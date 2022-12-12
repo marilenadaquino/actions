@@ -12,7 +12,7 @@ def get_releases():
     for repo in lines:
         repo_release = {}
         release_id, release_tag,draft_or_prerelease = None, None, False
-        owner, repo = repo.split('/')[0],repo.split('/')[1].split(':',1)[0]
+        owner, repo_name = repo.split('/')[0],repo.split('/')[1].split(':',1)[0]
         req = requests.get("https://api.github.com/repos/"+owner+"/"+repo_name+"/releases",
                            headers={"Authorization": "token "+TOKEN})
         if req.status_code == 200:
