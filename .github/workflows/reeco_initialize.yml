@@ -128,7 +128,7 @@ jobs:
       - name: write release report file
         uses: "DamianReeves/write-file-action@master"
         with:
-          path: reports/${{ steps.date.outputs.date }}releases_report.json
+          path: releases/${{ steps.date.outputs.date }}_report.json
           write-mode: overwrite
           contents: ${{ steps.releases_zenodo.outputs.releases_report }}
 

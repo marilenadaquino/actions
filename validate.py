@@ -58,6 +58,6 @@ def validate_yml():
                     # Malformed YAML in Markdown
                     report[root + "/" + fi] = [e]
 
-    print(f'::set-output name=report::{report}')
+    print(f'"{report}={report}" >> $GITHUB_OUTPUT')
 
 validate_yml()
